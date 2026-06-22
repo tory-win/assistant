@@ -1,0 +1,62 @@
+# 토리 자동화 에이전트 — 6잡(fetch×3·brief·watcher·replier)을 한 컨테이너로 묶어
+# Docker Desktop 기동 후 restart:unless-stopped 로 자동 복귀한다. macOS 로그인 전 무인 기동은
+# Docker Desktop 자체가 뜨지 않아 보장하지 않는다(autologin 또는 로그인 필요).
+# 토리메모리 큐레이터와 분리된 assistant 코드베이스.
+#
+#   docker compose up -d --build
+#   docker compose logs -f
+#
+# 주의: 기존 torymemory-tory-agent 와 동시에 띄우면 같은 Slack/Notion/Gmail 큐를 중복 처리한다.
+# 운영 전환 전에는 smoke-test 만 사용한다.
+name: assistant
+
+services:
+  tory-agent:
+    build:
+      context: ./docker/tory-agent
+    image: awm/assistant-agent:local
+    container_name: assistant-agent
+    restart: unless-stopped
+    mem_limit: 2g
+    environment:
+      # 조사 엔진(watcher/replier 의 HTTP 도구루프)·브리프 LLM.
+      # :8321 은 launchd-code-services_default 네트워크의 local-cliproxyapi 로 직접 라우팅한다.
+      # host.docker.internal:8321 은 Mac/Docker Desktop 에서 IPv6/host-gateway/바인딩 상태에 따라
+      # Errno 101 또는 connection refused 가 날 수 있어 쓰지 않는다.
+      - TORY_LLM_BASE=http://local-cliproxyapi:8321
+      - TORY_AGENT_MODEL=claude-opus-4-6
+      - TORY_AGENT_GPT_FALLBACK_MODELS=gpt-5.4
+      - TORYMEMORY_API=http://host.docker.internal:1128
+      - OPENAI_BASE_URL=http://local-cliproxyapi:8321/v1
+      - TORY_MEETING_NOTES_FILE=/root/.torymemory/meeting-note-studio-data/notes.json
+      # 기본은 기존 토리. 다른 사람 비서는 TORY_ASSISTANT_ID=<id> docker compose ... 로 실행.
+      - TORY_ASSISTANT_ID=${TORY_ASSISTANT_ID:-tory}
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    networks:
+      - default
+      - cliproxy
+    volumes:
+      # 토큰(.env: slack/anthropic-proxy/notion, google_token.json). google OAuth 갱신이 써야 하므로 rw.
+      - /Users/tory/.hermes:/root/.hermes
+      # 잡·헬퍼(read 전용) — 호스트에서 수정하면 다음 주기 반영
+      - ./bin:/root/.torymemory/bin:ro
+      # 상태·feed(rw): attention 큐, 게이트, 커서, single_instance 락, feed JSONL
+      - /Users/tory/.torymemory/state:/root/.torymemory/state
+      - /Users/tory/.torymemory/feeds:/root/.torymemory/feeds
+      - /Users/tory/.torymemory/outbox:/root/.torymemory/outbox
+      # 토리 미팅노트/녹음 전사 산출물(read only). 원문은 메모리 feed 로 보내지 않고 state/recordings 로만 동기화.
+      - /Users/tory/Downloads/dev/meeting-note-studio/data:/root/.torymemory/meeting-note-studio-data:ro
+      # 추가 비서 프로필: <id>.json, <id>/.env, <id>/state|feeds|outbox 등.
+      - /Users/tory/.torymemory/assistants:/root/.torymemory/assistants
+      # 운영 설정(read only): 브리핑 발송 채널, 핵심 채널, Gmail 노이즈 필터
+      - /Users/tory/.torymemory/slack-config.json:/root/.torymemory/slack-config.json:ro
+      - /Users/tory/.torymemory/mail-filters.json:/root/.torymemory/mail-filters.json:ro
+      # 딥브리프(local_read 패리티, read 전용)
+      - /Users/tory/.torymemory/deep-briefs:/root/.torymemory/deep-briefs:ro
+
+networks:
+  default:
+  cliproxy:
+    external: true
+    name: launchd-code-services_default

@@ -1,0 +1,15 @@
+.DS_Store
+__pycache__/
+*.py[cod]
+*.bak*
+.env
+*.env
+google_token*.json
+google_client_secret.json
+state/
+feeds/
+outbox/
+deep-briefs/
+logs/
+tmp/
+

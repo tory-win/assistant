@@ -1,0 +1,22 @@
+{
+  "id": "assistant-id",
+  "assistant_name": "비서이름",
+  "assistant_slug": "assistant-id",
+  "company_name": "ASWEMAKE",
+  "boss_name": "사용자이름",
+  "boss_title": "직함",
+  "boss_user_id": "UXXXXXXXX",
+  "assistant_channel_id": "CXXXXXXXX",
+  "assistant_channel_name": "비서채널명",
+  "slack_username": "비서이름",
+  "slack_icon_emoji": ":card_index_dividers:",
+  "env_file": "~/.torymemory/assistants/assistant-id/.env",
+  "google_token_file": "~/.torymemory/assistants/assistant-id/google_token.json",
+  "slack_config_file": "~/.torymemory/assistants/assistant-id/slack-config.json",
+  "enabled_sources": ["slack", "notion"],
+  "enabled_actions": ["slack", "notion"],
+  "notion_task_db_id": "노션 task DB id",
+  "notion_task_owner_id": "담당자 relation page id",
+  "notion_task_owner_name": "담당자 이름",
+  "memory_user_id": "awm_confidential"
+}

@@ -1,0 +1,49 @@
+{
+  "_README": "김유정 비서 Slack 설정. Slack+Notion only.",
+  "briefing": {
+    "destination": "channel",
+    "private_channel_id": "C0BAEFGNH55",
+    "use_canvas": false,
+    "urgent_dm_ping": true,
+    "min_interval_seconds": 900,
+    "model": "gpt-5.4",
+    "memory_context": false,
+    "business_summary": false
+  },
+  "business_brief": {
+    "enabled": false
+  },
+  "hatdelivery_digest": {
+    "enabled": false
+  },
+  "triage": {
+    "watch_dms": false,
+    "watch_mentions": true,
+    "key_channels": [],
+    "keywords": [
+      "긴급",
+      "ASAP",
+      "오늘까지",
+      "내일까지",
+      "데드라인",
+      "마감",
+      "승인",
+      "검토 부탁",
+      "확인 부탁",
+      "리뷰 부탁",
+      "회신"
+    ]
+  },
+  "memory": {
+    "ingest_scope": "member",
+    "user_id": "awm_confidential",
+    "min_chars": 0
+  },
+  "poll": {
+    "interval_seconds": 150,
+    "first_run_lookback_hours": 24,
+    "max_messages_per_channel": 200,
+    "max_channels": 80
+  },
+  "exclude_channels": []
+}

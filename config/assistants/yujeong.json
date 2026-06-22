@@ -1,0 +1,21 @@
+{
+  "id": "yujeong",
+  "assistant_name": "토리",
+  "assistant_slug": "yujeong",
+  "company_name": "ASWEMAKE",
+  "boss_name": "김유정",
+  "boss_title": "PD",
+  "boss_user_id": "U03EVPNUREG",
+  "assistant_channel_id": "C0BAEFGNH55",
+  "assistant_channel_name": "유정-비서",
+  "slack_username": "토리",
+  "slack_icon_emoji": ":card_index_dividers:",
+  "env_file": "~/.hermes/.env",
+  "slack_config_file": "~/.torymemory/assistants/yujeong/slack-config.json",
+  "enabled_sources": ["slack", "notion"],
+  "enabled_actions": ["slack", "notion"],
+  "notion_task_db_id": "1a3ea3ff-6c9b-80df-ad29-c2c7863caca0",
+  "notion_task_owner_id": "9e86de84-d41a-415f-be8d-18fd43177952",
+  "notion_task_owner_name": "김유정",
+  "memory_user_id": "awm_confidential"
+}

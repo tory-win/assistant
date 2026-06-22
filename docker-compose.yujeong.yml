@@ -1,0 +1,45 @@
+# 김유정 비서 — 공용 토리 에이전트 이미지를 쓰되 프로필/상태/채널은 yujeong 으로 분리한다.
+#
+#   docker compose -f docker-compose.yujeong.yml up -d --build
+#   docker compose -f docker-compose.yujeong.yml logs -f
+#
+name: assistant-yujeong
+
+services:
+  tory-agent-yujeong:
+    build:
+      context: ./docker/tory-agent
+    image: awm/assistant-agent:local
+    container_name: assistant-agent-yujeong
+    restart: unless-stopped
+    mem_limit: 2g
+    environment:
+      - TORY_LLM_BASE=http://local-cliproxyapi:8321
+      - TORY_AGENT_MODEL=claude-opus-4-6
+      - TORY_AGENT_GPT_FALLBACK_MODELS=gpt-5.4
+      - TORYMEMORY_API=http://host.docker.internal:1128
+      - OPENAI_BASE_URL=http://local-cliproxyapi:8321/v1
+      - TORY_MEETING_NOTES_FILE=/root/.torymemory/meeting-note-studio-data/notes.json
+      - TORY_ASSISTANT_ID=yujeong
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    networks:
+      - default
+      - cliproxy
+    volumes:
+      - /Users/tory/.hermes:/root/.hermes
+      - ./bin:/root/.torymemory/bin:ro
+      - /Users/tory/.torymemory/state:/root/.torymemory/state
+      - /Users/tory/.torymemory/feeds:/root/.torymemory/feeds
+      - /Users/tory/.torymemory/outbox:/root/.torymemory/outbox
+      - /Users/tory/Downloads/dev/meeting-note-studio/data:/root/.torymemory/meeting-note-studio-data:ro
+      - /Users/tory/.torymemory/assistants:/root/.torymemory/assistants
+      - /Users/tory/.torymemory/slack-config.json:/root/.torymemory/slack-config.json:ro
+      - /Users/tory/.torymemory/mail-filters.json:/root/.torymemory/mail-filters.json:ro
+      - /Users/tory/.torymemory/deep-briefs:/root/.torymemory/deep-briefs:ro
+
+networks:
+  default:
+  cliproxy:
+    external: true
+    name: launchd-code-services_default
