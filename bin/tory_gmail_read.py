@@ -30,7 +30,12 @@ TOKEN = PROFILE.get("google_token_file") or os.path.join(os.path.expanduser(TOKE
 GAPI = "https://gmail.googleapis.com/gmail/v1/users/me"
 OAUTH = "https://oauth2.googleapis.com/token"
 
-sys.path.insert(0, os.path.join(HOME, ".torymemory", "bin"))
+SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
+if SCRIPT_DIR not in sys.path:
+    sys.path.insert(0, SCRIPT_DIR)
+SHIM_BIN = os.path.join(HOME, ".torymemory", "bin")
+if SHIM_BIN != SCRIPT_DIR and SHIM_BIN not in sys.path:
+    sys.path.append(SHIM_BIN)
 try:
     from torymemory_redact_secrets import redact
 except Exception:

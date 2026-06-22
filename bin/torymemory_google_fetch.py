@@ -30,9 +30,12 @@ try:
 except Exception:
     KST = datetime.timezone(datetime.timedelta(hours=9), "KST")
 
-sys.path.insert(0, os.path.expanduser("~/.torymemory/bin"))
-# ~/Downloads 는 TCC 보호 경로 → launchd 세션에서 sys.path 에 두면 import 시 opendir 가
-# 동의 프롬프트를 기다리며 영구 정지한다. TCC-safe 사본(~/.torymemory/bin)만 쓴다.
+SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
+if SCRIPT_DIR not in sys.path:
+    sys.path.insert(0, SCRIPT_DIR)
+SHIM_BIN = os.path.expanduser("~/.torymemory/bin")
+if SHIM_BIN != SCRIPT_DIR and SHIM_BIN not in sys.path:
+    sys.path.append(SHIM_BIN)
 try:
     from torymemory_redact_secrets import redact
 except Exception:

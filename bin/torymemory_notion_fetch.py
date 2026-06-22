@@ -34,8 +34,12 @@ NOTION_VERSION = "2022-06-28"
 MAX_DOCS = int(os.environ.get("NOTION_MAX_DOCS", "20"))
 EXCERPT_CAP = int(os.environ.get("NOTION_EXCERPT_CAP", "700"))
 
-# TCC-safe: ~/.torymemory/bin 만 sys.path 에(다운로드 경로 import 정지 회피 — 기존 페처 관례).
-sys.path.insert(0, os.path.join(HOME, ".torymemory", "bin"))
+SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
+if SCRIPT_DIR not in sys.path:
+    sys.path.insert(0, SCRIPT_DIR)
+SHIM_BIN = os.path.join(HOME, ".torymemory", "bin")
+if SHIM_BIN != SCRIPT_DIR and SHIM_BIN not in sys.path:
+    sys.path.append(SHIM_BIN)
 try:
     from torymemory_redact_secrets import redact
 except Exception:

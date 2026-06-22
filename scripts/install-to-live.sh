@@ -2,7 +2,7 @@
 set -eu
 
 if [ "${CONFIRM:-}" != "install" ]; then
-  echo "Set CONFIRM=install to copy bin/ into ~/.torymemory/bin" >&2
+  echo "Set CONFIRM=install to refresh the ~/.torymemory/bin compatibility shim" >&2
   exit 2
 fi
 
@@ -12,5 +12,4 @@ LIVE="${LIVE_ASSISTANT_HOME:-$HOME/.torymemory}"
 rsync -a --delete --exclude='__pycache__/' "$ROOT/bin/" "$LIVE/bin/"
 chmod +x "$LIVE"/bin/*.py "$LIVE"/bin/*.sh 2>/dev/null || true
 
-echo "installed bin/ to $LIVE/bin"
-
+echo "refreshed compatibility shim at $LIVE/bin"

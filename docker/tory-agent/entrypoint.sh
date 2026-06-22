@@ -1,5 +1,5 @@
 #!/bin/sh
-# 토리 6잡 주기 실행. 헬퍼/잡은 ~/.torymemory/bin(=/root/.torymemory/bin, ro 마운트),
+# 토리 6잡 주기 실행. 헬퍼/잡은 assistant/bin이 마운트된 /root/.torymemory/bin,
 # 토큰은 ~/.hermes, 상태·feed 는 ~/.torymemory/{state,feeds}(rw 마운트). claude -p 는 host :8321.
 set -u
 BIN=/root/.torymemory/bin

@@ -7,7 +7,12 @@ import os
 import json
 import time
 
-sys.path.insert(0, os.path.expanduser("~/.torymemory/bin"))
+SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
+if SCRIPT_DIR not in sys.path:
+    sys.path.insert(0, SCRIPT_DIR)
+SHIM_BIN = os.path.expanduser("~/.torymemory/bin")
+if SHIM_BIN != SCRIPT_DIR and SHIM_BIN not in sys.path:
+    sys.path.append(SHIM_BIN)
 import tory_command_watcher as w  # run_claude, slack_call, extract_handoffs, PROMPT_TMPL, CHANNEL 재사용
 
 

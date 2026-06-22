@@ -38,7 +38,6 @@ docker compose -f docker-compose.<assistant_id>.yml up -d --build
 
 ```bash
 docker exec assistant-agent-<assistant_id> sh -lc 'echo $TORY_ASSISTANT_ID'
-docker exec assistant-agent-<assistant_id> sh -lc 'python3 /root/.torymemory/bin/tory_notion_tasks.py'
 docker exec assistant-agent-<assistant_id> sh -lc 'python3 /root/.torymemory/bin/torymemory_slack_fetch.py --discover'
 docker logs assistant-agent-<assistant_id> --tail 120
 ```
@@ -48,7 +47,7 @@ docker logs assistant-agent-<assistant_id> --tail 120
 - 컨테이너가 `Up`.
 - 프로필의 `state_dir/outbox_dir`가 `/root/.torymemory/assistants/<assistant_id>/...`.
 - 도구 목록이 enabled sources/actions 범위만 포함.
-- Notion task 조회가 해당 담당자 기준으로 나온다.
+- 브리핑/할 일 답변은 Notion task DB 조회를 쓰지 않는다. task 생성은 별도 승인 액션으로만 동작한다.
 - 비활성 소스는 `*_sources_disabled`로 skip된다.
 
 ## 김유정 프로필

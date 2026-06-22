@@ -6,8 +6,7 @@
 #   docker compose up -d --build
 #   docker compose logs -f
 #
-# 주의: 기존 torymemory-tory-agent 와 동시에 띄우면 같은 Slack/Notion/Gmail 큐를 중복 처리한다.
-# 운영 전환 전에는 smoke-test 만 사용한다.
+# 주의: 구 비서 에이전트 컨테이너를 되살려 동시에 띄우면 같은 Slack/Notion/Gmail 큐를 중복 처리한다.
 name: assistant
 
 services:
@@ -39,7 +38,7 @@ services:
     volumes:
       # 토큰(.env: slack/anthropic-proxy/notion, google_token.json). google OAuth 갱신이 써야 하므로 rw.
       - /Users/tory/.hermes:/root/.hermes
-      # 잡·헬퍼(read 전용) — 호스트에서 수정하면 다음 주기 반영
+      # 잡·헬퍼(read 전용) — assistant/bin 이 컨테이너의 기존 런타임 경로로 마운트된다.
       - ./bin:/root/.torymemory/bin:ro
       # 상태·feed(rw): attention 큐, 게이트, 커서, single_instance 락, feed JSONL
       - /Users/tory/.torymemory/state:/root/.torymemory/state
