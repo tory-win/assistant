@@ -38,7 +38,7 @@ docker compose -f docker-compose.<assistant_id>.yml up -d --build
 
 ```bash
 docker exec assistant-agent-<assistant_id> sh -lc 'echo $TORY_ASSISTANT_ID'
-docker exec assistant-agent-<assistant_id> sh -lc 'python3 /root/.torymemory/bin/torymemory_slack_fetch.py --discover'
+docker exec assistant-agent-<assistant_id> sh -lc 'python3 /app/bin/torymemory_slack_fetch.py --discover'
 docker logs assistant-agent-<assistant_id> --tail 120
 ```
 

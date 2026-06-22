@@ -5,7 +5,7 @@
 ## 현재 상태
 
 - 소스 정본: `/Users/tory/Downloads/dev/assistant`
-- 라이브 스크립트 마운트: `/Users/tory/Downloads/dev/assistant/bin -> /root/.torymemory/bin`
+- 라이브 스크립트 마운트: `/Users/tory/Downloads/dev/assistant/bin -> /app/bin`
 - 라이브 컨테이너: `assistant-agent`, `assistant-agent-yujeong`
 
 ## 코드 반영

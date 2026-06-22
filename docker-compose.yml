@@ -38,8 +38,8 @@ services:
     volumes:
       # 토큰(.env: slack/anthropic-proxy/notion, google_token.json). google OAuth 갱신이 써야 하므로 rw.
       - /Users/tory/.hermes:/root/.hermes
-      # 잡·헬퍼(read 전용) — assistant/bin 이 컨테이너의 기존 런타임 경로로 마운트된다.
-      - ./bin:/root/.torymemory/bin:ro
+      # 잡·헬퍼(read 전용) — assistant/bin 이 컨테이너 코드 경로로 마운트된다.
+      - ./bin:/app/bin:ro
       # 상태·feed(rw): attention 큐, 게이트, 커서, single_instance 락, feed JSONL
       - /Users/tory/.torymemory/state:/root/.torymemory/state
       - /Users/tory/.torymemory/feeds:/root/.torymemory/feeds

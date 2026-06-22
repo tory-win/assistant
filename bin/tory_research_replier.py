@@ -18,9 +18,6 @@ import re
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
 if SCRIPT_DIR not in sys.path:
     sys.path.insert(0, SCRIPT_DIR)
-SHIM_BIN = os.path.expanduser("~/.torymemory/bin")
-if SHIM_BIN != SCRIPT_DIR and SHIM_BIN not in sys.path:
-    sys.path.append(SHIM_BIN)
 import tory_command_watcher as w
 try:
     from tory_format import render_slack, READ_CORE, clean_excerpt

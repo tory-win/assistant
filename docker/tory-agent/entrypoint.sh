@@ -1,8 +1,8 @@
 #!/bin/sh
-# 토리 6잡 주기 실행. 헬퍼/잡은 assistant/bin이 마운트된 /root/.torymemory/bin,
+# 토리 6잡 주기 실행. 헬퍼/잡은 assistant/bin이 마운트된 /app/bin,
 # 토큰은 ~/.hermes, 상태·feed 는 ~/.torymemory/{state,feeds}(rw 마운트). claude -p 는 host :8321.
 set -u
-BIN=/root/.torymemory/bin
+BIN=/app/bin
 export HOME=/root
 # compose 에서는 :8321 을 local-cliproxyapi 로 직접 라우팅한다. 기본값은 수동 실행 fallback.
 HOSTBASE="${TORY_HOST:-host.docker.internal}"
@@ -16,7 +16,7 @@ export PATH="/usr/local/bin:/usr/bin:/bin"
 WORK_STATE="$(PYTHONDONTWRITEBYTECODE=1 python3 - <<'PY'
 import os
 import sys
-sys.path.insert(0, "/root/.torymemory/bin")
+sys.path.insert(0, "/app/bin")
 try:
     import tory_assistant_config as c
     p = c.load_profile()

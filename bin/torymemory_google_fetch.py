@@ -33,9 +33,6 @@ except Exception:
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
 if SCRIPT_DIR not in sys.path:
     sys.path.insert(0, SCRIPT_DIR)
-SHIM_BIN = os.path.expanduser("~/.torymemory/bin")
-if SHIM_BIN != SCRIPT_DIR and SHIM_BIN not in sys.path:
-    sys.path.append(SHIM_BIN)
 try:
     from torymemory_redact_secrets import redact
 except Exception:

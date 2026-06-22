@@ -2,7 +2,7 @@
 
 토리 비서 코드베이스를 `torymemory` 인프라에서 분리한 저장소다.
 
-현재 라이브 운영은 이 저장소의 compose가 담당한다. 컨테이너 `assistant-agent`, `assistant-agent-yujeong`이 이 저장소의 `bin/`을 `/root/.torymemory/bin`으로 마운트한다.
+현재 라이브 운영은 이 저장소의 compose가 담당한다. 컨테이너 `assistant-agent`, `assistant-agent-yujeong`이 이 저장소의 `bin/`을 `/app/bin`으로 마운트한다.
 
 `~/.torymemory/bin`은 일부 macOS launchd/TCC 작업과 과거 호출자를 위한 호환 shim 으로만 남긴다. 새 비서 코드와 운영 문서는 이 저장소가 정본이다.
 

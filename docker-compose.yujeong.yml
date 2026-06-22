@@ -28,7 +28,7 @@ services:
       - cliproxy
     volumes:
       - /Users/tory/.hermes:/root/.hermes
-      - ./bin:/root/.torymemory/bin:ro
+      - ./bin:/app/bin:ro
       - /Users/tory/.torymemory/state:/root/.torymemory/state
       - /Users/tory/.torymemory/feeds:/root/.torymemory/feeds
       - /Users/tory/.torymemory/outbox:/root/.torymemory/outbox

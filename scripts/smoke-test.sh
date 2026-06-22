@@ -16,6 +16,11 @@ if command -v docker >/dev/null 2>&1; then
 fi
 
 if command -v rg >/dev/null 2>&1; then
+  rg -n "/root/\\.torymemory/bin" "$ROOT" \
+    --glob '!*.bak*' --glob '!scripts/smoke-test.sh' && {
+      echo "container code path must be /app/bin, not /root/.torymemory/bin" >&2
+      exit 1
+    }
   rg -n "(xox[baprs]-[0-9A-Za-z-]{20,}|sk-[A-Za-z0-9_-]{20,}|ghp_[A-Za-z0-9]{30,}|AIza[0-9A-Za-z_-]{30,}|-----BEGIN [A-Z ]*PRIVATE KEY-----)" "$ROOT" \
     --glob '!*.bak*' --glob '!README.md' --glob '!scripts/smoke-test.sh' && {
       echo "possible secret matched" >&2

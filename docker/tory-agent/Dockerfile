@@ -14,8 +14,9 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     && rm -rf /var/lib/apt/lists/*
 # poppler-utils = pdftotext: 슬랙 파일(PPT/PDF) converted_pdf 본문 텍스트 추출(tory_slack_file.py)
 ENV TZ=Asia/Seoul
+RUN mkdir -p /app/bin
 
 COPY entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
-WORKDIR /root
+WORKDIR /app
 ENTRYPOINT ["/entrypoint.sh"]

@@ -442,7 +442,7 @@ def notify_login_needed(channel, thread_ts=None, throttle=True):
         return
     outbox_send(channel,
                 "⚠️ 크레딧 스크랩: platform.claude.com 세션이 만료됐어요. "
-                "터미널에서 `python3 ~/.torymemory/bin/tory_credit.py login` 으로 재로그인해 주세요.",
+                "터미널에서 `python3 /Users/tory/Downloads/dev/assistant/bin/tory_credit.py login` 으로 재로그인해 주세요.",
                 thread_ts)
     st["login_notice_at"] = time.time()
     write_json(DAILY_STATE, st)
@@ -458,7 +458,7 @@ def handle_request(req):
     s = summarize(scrape_safe())
     if s.get("login_needed"):
         text = ("⚠️ 크레딧 조회 실패 — platform.claude.com 세션 만료. "
-                "`python3 ~/.torymemory/bin/tory_credit.py login` 으로 재로그인이 필요합니다.")
+                "`python3 /Users/tory/Downloads/dev/assistant/bin/tory_credit.py login` 으로 재로그인이 필요합니다.")
         notify_login_needed(ASSIST_CHANNEL)
     elif not s.get("ok"):
         text = "크레딧 조회에 일시적으로 실패했어요(브라우저/네트워크). 잠시 후 다시 시도해 주세요."
@@ -577,7 +577,7 @@ def poll_ai_credit():
     _slack("reactions.add", btok, {"channel": AI_CREDIT_CHANNEL, "timestamp": serve_ts, "name": "eyes"}, post=True)
     s = summarize(scrape_safe())
     if s.get("login_needed"):
-        text = "⚠️ 세션 만료 — `python3 ~/.torymemory/bin/tory_credit.py login` 으로 재로그인이 필요합니다."
+        text = "⚠️ 세션 만료 — `python3 /Users/tory/Downloads/dev/assistant/bin/tory_credit.py login` 으로 재로그인이 필요합니다."
     elif not s.get("ok"):
         text = "크레딧 조회에 일시적으로 실패했어요. 잠시 후 다시 시도해 주세요."
     else:
