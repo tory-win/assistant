@@ -5,7 +5,7 @@
 ## 경계
 
 - 코드 정본: 이 저장소의 `bin/`, `docker/`, `docker-compose*.yml`.
-- 라이브 런타임: `~/.torymemory/bin`, `~/.torymemory/state`, `~/.torymemory/feeds`, `~/.torymemory/assistants`.
+- 라이브 런타임: `assistant-agent*` 컨테이너가 이 저장소의 `bin/`을 마운트한다. 상태/피드/프로필은 `~/.torymemory/state`, `~/.torymemory/feeds`, `~/.torymemory/assistants`.
 - secret/token/state/feed 는 이 저장소에 넣지 않는다.
 - 토리메모리 큐레이터/Hermes/OpenMemory 서버 코드는 이 저장소 범위 밖이다.
 
@@ -15,4 +15,3 @@
 - 비서 발송 게이트 불변식은 유지한다: 타인에게 가는 Slack/Gmail/Notion 실행은 보스 승인 후에만.
 - 프로필별 state/feed/outbox 격리를 깨지 않는다.
 - 변경 후 최소 검증은 `scripts/smoke-test.sh`.
-
